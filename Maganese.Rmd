@@ -1,0 +1,76 @@
+---
+title: "Maganese"
+author: "Wilmond Vano"
+date: "5/1/2018"
+output: html_document
+---
+
+##Data Summary
+```{r}
+  USDA <- load("USDA16.RData")
+```
+
+Manganese is the 5th most abundant element in the world and an important element in all living things. The main function of the metal is to help break down materials in the body. Manganese contains many essential enzymes, such as an enzyme for plants to convert water into oxygen for photosynthesis. Humans typically house about 12 mg of manganese and take in about 4 mg each day from the foods we eat. Without it, our bones will become brittle and prone to breaking as well as our bodies would be unable to utilize vitamin B. Manganese is typically stored in the kidneys, pancreas, liver, and bones.
+
+
+```{r}
+  summary(USDA16)
+  summary(USDA16$Manganese_.mg.)
+
+```
+
+As you can see, the quantity of manganese in comparison to the other elements is quite low. You typically should not have more than 20 mg of manganese in your body. Too much can be toxic for the body; It can lead to neurological disorders. At low abundance levels, symptoms such as headaches and loss of apetite may occur. At higher levels, you may notice hallucinations or be prone to violence and more irritable.
+
+There are far more benefts to manganese however. Manganese plays an important role in keeping bones healthy, disease prevention, diabetic control, boost metabolism, prevention of epileptic seizures, improve cognitive function and many more. Manganese is consumed through supplement pills and foods such as berries, tofu, bananas, cucumbers, figs, carrots, brown rice and many other green veggies and nuts.
+
+```{r}
+  which.max(USDA16$Manganese_.mg.)
+  USDA16$Shrt_Desc[7503]
+  USDA16$Manganese_.mg.[7503]
+  
+  which.min(USDA16$Manganese_.mg.)
+  USDA16$Shrt_Desc[1]
+  USDA16$Manganese_.mg.[1]
+  
+  containsManganese <- subset(USDA16, Manganese_.mg. > 0)
+  nrow(containsManganese)
+  
+  which.min(containsManganese$Manganese_.mg.)
+  containsManganese$Shrt_Desc[1]
+  containsManganese$Manganese_.mg.[1]
+  
+  highManganese <- subset(containsManganese, Manganese_.mg. > 200)
+  nrow(highManganese)
+  
+  lowManganese <- subset(containsManganese, Manganese_.mg. < 1)
+  nrow(lowManganese)
+```
+
+According to the data set, the food with the highest amount of manganese is Beef liver with about 328 mg of manganese. The lowest when serached through the data set comes out to butter with salt with 0 mg. However this is in accurate since many food items on the last have 0 mg. I created a set called containsManganese to sort all the data to only those that have manganese in it (greater than 0) and used that set to find the min. The min turned out to be BUTTER, WHIPPED, W/ SALT which had 0.001 mg of manganese. In addition, I used the new data set to sort by high concentrates of Manganese and low concentrates of manganese. High manganese levels was anything over 200 mg which had 3 foods. Low manganese was anything that had less than 1 mg. This came to about 5819 foods.
+
+```{r}
+  sd(containsManganese$Manganese_.mg., na.rm = TRUE)
+  mean(containsManganese$Manganese_.mg., na.rm = TRUE)
+```
+The average amount of manganese is about 0.6732868 with a standard deviation of 7.330777
+
+##Ploting Data
+
+```{r}
+  plot(containsManganese$Manganese_.mg.)
+```
+When put onto a scatter plot, its easy to see that most foods only contains minimal amounts of manganese. Majority of them contains close 0 mg of the element.
+
+```{r}
+  plot(containsManganese$Manganese_.mg., containsManganese$Sodium_.mg.)
+
+```
+When comparing manganese to another element in food such as sodium, you can see that manganese fails in comparison in terms of amount. Sodium maxing at about 40,000 mg while Managnese, as forementioned, maxes at 328 mg. Going off of this, one may draw the conclusion that manganese is less convenient to obtain compared to a popular element in food such as sodium.
+
+```{r}
+  hist(containsManganese$Manganese_.mg., xlab = "Manganese (mg)", main = "Histogram of Manganese", breaks=100)
+```
+
+Again on the above graph showing the abundance of low amounts of manganese in foods.
+
+In conclusion, while manganese may not be abundant in the foods that we eat, it is very important and plays a crucial role in the human body.
